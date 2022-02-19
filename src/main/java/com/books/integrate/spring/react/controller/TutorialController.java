@@ -120,6 +120,22 @@ public class TutorialController {
                 return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
             }
         }
+        /*Updates title, description, and published status, based on the title 
+        submitted in tutorials/update/query?title=tutorial_title. You need to 
+        add the tutorial ID in the body. */
+        @PutMapping("/tutorials/update/query")
+        public ResponseEntity<Tutorial> updateTutorialByTitle(@RequestParam("title") String title, @RequestBody Tutorial tutorial){
+            Optional<Tutorial> tutorialData = tutorialRepository.findById(tutorial.getId());
+            if(tutorialData.isPresent()){
+                Tutorial _tutorial = tutorialData.get();
+                _tutorial.setTitle(tutorial.getTitle());
+                _tutorial.setDescription(tutorial.getDescription());
+                _tutorial.setPublished(tutorial.isPublished());
+                return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
+            } else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
 
 	@GetMapping("/tutorials/published")
 	public ResponseEntity<List<Tutorial>> findByPublished() {
