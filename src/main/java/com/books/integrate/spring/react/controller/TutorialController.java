@@ -107,6 +107,19 @@ public class TutorialController {
 		}
 
 	}
+        //Delete all records with the title entered in the form /tutorials/query?title=tutorial_title 
+        @DeleteMapping("/tutorials/query")
+        public ResponseEntity<HttpStatus> deleteTutorialByTitle(@RequestParam("title")String title){
+            List<Tutorial> aux = tutorialRepository.findByTitleContaining(title);
+            try{
+                for (Tutorial element: aux){
+                    tutorialRepository.deleteById(element.getId());
+                }
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } catch (Exception ex){
+                return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+            }
+        }
 
 	@GetMapping("/tutorials/published")
 	public ResponseEntity<List<Tutorial>> findByPublished() {

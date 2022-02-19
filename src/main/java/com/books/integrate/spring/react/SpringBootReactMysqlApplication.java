@@ -7,8 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBootReactMysqlApplication {
 
 	public static void main(String[] args) {
-
-		SpringApplication.run(SpringBootReactMysqlApplication.class, args);
+            try{
+                SpringApplication.run(SpringBootReactMysqlApplication.class, args);
+            } catch (Throwable e){
+                e.printStackTrace();
+            }
+	
 	}
 
 }
