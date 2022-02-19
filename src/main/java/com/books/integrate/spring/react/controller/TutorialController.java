@@ -108,7 +108,7 @@ public class TutorialController {
 
 	}
         //Delete all records with the title entered in the form /tutorials/query?title=tutorial_title 
-        @DeleteMapping("/tutorials/query")
+        @DeleteMapping("/tutorials/delete/query")
         public ResponseEntity<HttpStatus> deleteTutorialByTitle(@RequestParam("title")String title){
             List<Tutorial> aux = tutorialRepository.findByTitleContaining(title);
             try{
